@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0f16">
+  <meta name="description" content="No Network — private lightweight messaging">
+  <title>No Network — Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-upgraded.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Authentication -->
+    <section id="authScreen" class="screen active auth-screen" aria-label="تسجيل الدخول">
+      <div class="auth-visual" aria-hidden="true">
+        <div class="grid-glow"></div>
+        <span class="orbit orbit-a"></span>
+        <span class="orbit orbit-b"></span>
+      </div>
+
+      <div class="auth-card">
+        <div class="brand-lockup">
+          <div class="brand-mark">N</div>
+          <div>
+            <strong>No Network</strong>
+            <span>Private, simple, direct.</span>
+          </div>
+        </div>
+
+        <div class="auth-heading">
+          <p class="eyebrow">MESSAGING / 01</p>
+          <h1>مساحتك الخاصة<br>للمحادثات.</h1>
+          <p>سجّل دخولك أو أنشئ حسابًا جديدًا من نفس الشاشة.</p>
+        </div>
+
+        <form class="auth-form" onsubmit="event.preventDefault(); login();">
+          <label>
+            <span>اسم المستخدم</span>
+            <input type="text" id="loginUsername" autocomplete="username" placeholder="مثال: black" maxlength="32" required>
+          </label>
+          <label>
+            <span>كلمة السر</span>
+            <input type="password" id="loginPassword" autocomplete="current-password" placeholder="••••••••" maxlength="128" required>
+          </label>
+          <button class="primary-btn" id="loginBtn" type="submit">
+            <span>دخول / تسجيل</span>
+            <span class="btn-arrow">↵</span>
+          </button>
+        </form>
+
+        <p id="authError" class="status-text" role="status"></p>
+        <p class="auth-note">لا تحتاج إلى إضافة كل الأشخاص مسبقًا. يكفي أن يشارك أحدهما الـ ID مع الآخر.</p>
+      </div>
+    </section>
+
+    <!-- Main app -->
+    <section id="appScreen" class="screen app-screen" aria-label="المحادثات">
+      <aside class="sidebar">
+        <header class="sidebar-header">
+          <div class="profile-chip" onclick="openProfileModal()" title="تعديل الحساب">
+            <img id="myAvatar" src="" alt="صورتك">
+            <span class="online-dot"></span>
+          </div>
+          <div class="my-identity">
+            <strong id="myUsername">...</strong>
+            <button class="id-copy" id="myIdBtn" type="button" onclick="copyMyId()" title="نسخ الـ ID">
+              <span id="myId">...</span><span class="copy-icon">⧉</span>
+            </button>
+          </div>
+          <button class="icon-btn" type="button" onclick="openProfileModal()" aria-label="إعدادات الحساب">•••</button>
+        </header>
+
+        <div class="sidebar-title-row">
+          <div>
+            <p class="eyebrow">CONVERSATIONS</p>
+            <h2>رسائلك</h2>
+          </div>
+          <span id="syncState" class="sync-state">متصل</span>
+        </div>
+
+        <div class="connect-box">
+          <div class="connect-icon">+</div>
+          <div class="connect-copy">
+            <strong>ابدأ محادثة</strong>
+            <span>ألصق ID الذي شاركه معك الشخص</span>
+          </div>
+          <div class="connect-input-row">
+            <input type="text" id="friendIdInput" autocomplete="off" placeholder="NN-XXXXXX" maxlength="32">
+            <button type="button" onclick="addFriend()">فتح</button>
+          </div>
+          <button class="share-id-btn" type="button" onclick="copyMyId()">نسخ الـ ID الخاص بي</button>
+        </div>
+
+        <div id="friendsList" class="friends-list" aria-live="polite"></div>
+        <div id="friendsEmpty" class="friends-empty">
+          <div class="empty-icon">✦</div>
+          <strong>لا توجد محادثات بعد</strong>
+          <span>شارك الـ ID الخاص بك مع شخص واحد، أو أدخل الـ ID الذي شاركه معك.</span>
+        </div>
+
+        <footer class="sidebar-footer">
+          <span>NO NETWORK</span>
+          <span id="lastSync">جاهز</span>
+        </footer>
+      </aside>
+
+      <main class="chat-area">
+        <div id="noChatSelected" class="empty-chat">
+          <div class="empty-chat-mark">N</div>
+          <p class="eyebrow">NO NETWORK</p>
+          <h3>اختر محادثة للبدء</h3>
+          <p>أدخل ID شخص واحد فقط، وستظهر المحادثة هنا.</p>
+        </div>
+
+        <div id="activeChat" class="active-chat" hidden>
+          <header class="chat-header">
+            <div class="chat-person">
+              <button class="mobile-back" type="button" onclick="closeChat()" aria-label="العودة">‹</button>
+              <img id="chatFriendAvatar" src="" alt="صورة الشخص">
+              <div>
+                <h3 id="chatFriendName">...</h3>
+                <button id="chatFriendId" class="chat-id" type="button" onclick="copyFriendId()">...</button>
+              </div>
+            </div>
+            <div class="chat-tools">
+              <span id="chatStatus" class="chat-status">مزامنة سريعة</span>
+            </div>
+          </header>
+
+          <div id="messagesContainer" class="messages-container" aria-live="polite"></div>
+
+          <div id="imagePreviewBar" class="image-preview-bar" hidden>
+            <div class="preview-media">
+              <img id="imagePreview" alt="معاينة الصورة">
+              <div>
+                <strong id="imageName">الصورة جاهزة</strong>
+                <span id="imageSize">سيتم ضغطها تلقائيًا</span>
+              </div>
+            </div>
+            <button type="button" class="remove-preview" onclick="clearSelectedImage()" aria-label="إزالة الصورة">×</button>
+          </div>
+
+          <form class="chat-input-bar" onsubmit="event.preventDefault(); sendMsg();">
+            <label class="file-upload-btn" title="إرفاق صورة">
+              <span>＋</span>
+              <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp,image/gif" onchange="handleImageSelect(event)">
+            </label>
+            <input type="text" id="messageInput" placeholder="اكتب رسالة…" autocomplete="off" maxlength="4000">
+            <button id="sendBtn" class="send-btn" type="submit" aria-label="إرسال">
+              <span>إرسال</span>
+              <span>↗</span>
+            </button>
+          </form>
+        </div>
+      </main>
+    </section>
+
+    <!-- Profile modal -->
+    <div id="profileModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <div class="modal-backdrop" onclick="closeProfileModal()"></div>
+      <div class="modal-content">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">PROFILE</p>
+            <h3 id="profileTitle">تعديل الحساب</h3>
+          </div>
+          <button class="icon-btn" type="button" onclick="closeProfileModal()" aria-label="إغلاق">×</button>
+        </div>
+
+        <div class="avatar-edit">
+          <img id="editAvatarPreview" src="" alt="معاينة الصورة">
+          <label class="avatar-upload">
+            تغيير الصورة
+            <input type="file" id="avatarFileInput" accept="image/jpeg,image/png,image/webp,image/gif" onchange="previewNewAvatar(event)">
+          </label>
+        </div>
+
+        <label class="field">
+          <span>الاسم الظاهر</span>
+          <input type="text" id="editUsernameInput" placeholder="الاسم الجديد" maxlength="32">
+        </label>
+
+        <div class="account-id-card">
+          <span>الـ ID الخاص بك</span>
+          <button type="button" onclick="copyMyId()"><strong id="modalMyId"></strong><span>⧉</span></button>
+        </div>
+
+        <p id="profileStatus" class="status-text"></p>
+
+        <div class="modal-actions">
+          <button class="primary-btn" type="button" id="saveProfileBtn" onclick="saveProfileChanges()">حفظ التغييرات</button>
+          <button class="secondary-btn" type="button" onclick="closeProfileModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="app-upgraded.js" defer></script>
+</body>
+</html>
