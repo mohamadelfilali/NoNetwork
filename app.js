@@ -1,5 +1,5 @@
 // ضع رابط الـ Web App الخاص بك من Google Apps Script هنا
-const API_URL = "ضع_رابط_WEB_APP_URL_هنا";
+const API_URL = "https://script.google.com/macros/s/AKfycbxsJaY5cNNWe2sgzKZURjx5aIC_Ku2cJCS49a5CZiFNQfYtYasERTCs4WMCDoV3porPZQ/exec";
 
 let currentUser = JSON.parse(localStorage.getItem("nn_user")) || null;
 let currentChatFriend = null;
