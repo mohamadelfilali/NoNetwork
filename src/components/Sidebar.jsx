@@ -1,10 +1,17 @@
+// src/components/Sidebar.jsx
 import React from "react";
 
-export default function Sidebar(){
+export default function Sidebar({ currentPage, setPage }){
   return (
     <aside className="sidebar">
       <div className="card">
         <strong>القائمة</strong>
+      </div>
+
+      <div className="card" style={{display:"flex",flexDirection:"column",gap:8}}>
+        <button className="btn" onClick={()=>setPage("home")}>الرئيسية</button>
+        <button className="btn" onClick={()=>setPage("create")}>إنشاء أداة</button>
+        <button className="btn" onClick={()=>setPage("settings")}>الإعدادات</button>
       </div>
 
       <div className="card">
