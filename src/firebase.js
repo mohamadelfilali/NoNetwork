@@ -1,13 +1,14 @@
-// ملف التهيئة العامة لفايربيس
+// src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// ضع ملف src/firebaseConfig.js بنفس مسار المثال واملأ القيم
+import { getStorage } from "firebase/storage";
 import { firebaseConfig } from "./firebaseConfig";
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export async function signInWithGoogle(){
