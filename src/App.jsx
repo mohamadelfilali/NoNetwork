@@ -1,12 +1,16 @@
+// src/App.jsx
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
+import CreateTool from "./pages/CreateTool";
+import Settings from "./pages/Settings";
 import { signInWithGoogle, auth, doSignOut } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function App(){
   const [user, setUser] = useState(null);
+  const [page, setPage] = useState("home"); // home | create | settings
 
   useEffect(()=>{
     const unsub = onAuthStateChanged(auth, u => {
@@ -31,10 +35,12 @@ export default function App(){
 
   return (
     <div className="app">
-      <Sidebar />
+      <Sidebar currentPage={page} setPage={setPage} />
       <div className="main">
         <Header user={user} onSignIn={handleSignIn} onSignOut={handleSignOut} />
-        <Home />
+        {page === "home" && <Home />}
+        {page === "create" && <CreateTool user={user} />}
+        {page === "settings" && <Settings user={user} />}
         <div style={{marginTop:20}} className="small-muted">ملاحظة: زر تسجيل الدخول بـ Discord موجود مستقبلاً لكنه مُعطّل حالياً.</div>
       </div>
     </div>
