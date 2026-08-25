@@ -1,12 +1,95 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NoNetwork</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Network - Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- شاشة الدخول -->
+  <div id="authScreen" class="screen active">
+    <div class="card">
+      <h2>No Network</h2>
+      <p class="subtitle">قم بتسجيل الدخول أو إنشاء حساب جديد تلقائياً</p>
+      <input type="text" id="loginUsername" placeholder="اسم المستخدم">
+      <input type="password" id="loginPassword" placeholder="كلمة السر">
+      <button onclick="login()">دخول / تسجيل</button>
+      <p id="authError" class="error"></p>
+    </div>
+  </div>
+
+  <!-- شاشة الدردشة الرئيسية -->
+  <div id="appScreen" class="screen">
+    <!-- القائمة الجانبية -->
+    <div class="sidebar">
+      <div class="user-profile-header">
+        <img id="myAvatar" src="" alt="Avatar" onclick="openProfileModal()">
+        <div class="user-info">
+          <h4 id="myUsername">...</h4>
+          <span id="myId" class="badge">...</span>
+        </div>
+        <button class="icon-btn" onclick="openProfileModal()" title="إعدادات الحساب">✏️</button>
+      </div>
+
+      <div class="add-friend-box">
+        <input type="text" id="friendIdInput" placeholder="أدخل ID الصديق (NN-XXXXXX)">
+        <button onclick="addFriend()">إضافة</button>
+      </div>
+
+      <div id="friendsList" class="friends-list">
+        <!-- قائمة الأصدقاء ستظهر هنا -->
+      </div>
+    </div>
+
+    <!-- منطقة الدردشة -->
+    <div class="chat-area">
+      <div id="noChatSelected" class="empty-chat">
+        <h3>اختر صديقاً من القائمة للبدء في المحادثة</h3>
+      </div>
+
+      <div id="activeChat" class="active-chat" style="display: none;">
+        <div class="chat-header">
+          <img id="chatFriendAvatar" src="" alt="Friend">
+          <div>
+            <h3 id="chatFriendName">...</h3>
+            <span id="chatFriendId" class="badge">...</span>
+          </div>
+        </div>
+
+        <div id="messagesContainer" class="messages-container"></div>
+
+        <div class="chat-input-bar">
+          <label class="file-upload-btn" title="إرفاق صورة">
+            📷
+            <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect()">
+          </label>
+          <input type="text" id="messageInput" placeholder="اكتب رسالة..." onkeydown="if(event.key==='Enter') sendMsg()">
+          <button id="sendBtn" onclick="sendMsg()">إرسال</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة البروفايل (تعديل الاسم والصورة) -->
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <h3>تعديل الملف الشخصي</h3>
+      <div class="avatar-edit">
+        <img id="editAvatarPreview" src="" alt="Avatar">
+        <input type="file" id="avatarFileInput" accept="image/*" onchange="previewNewAvatar()">
+      </div>
+      <input type="text" id="editUsernameInput" placeholder="الاسم الجديد">
+      <p class="id-display">الـ ID الخاص بك: <strong id="modalMyId"></strong></p>
+
+      <div class="modal-actions">
+        <button onclick="saveProfileChanges()">حفظ التغيرات</button>
+        <button class="secondary" onclick="closeProfileModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
