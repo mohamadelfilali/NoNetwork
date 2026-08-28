@@ -11,14 +11,30 @@ main{padding:38px 0 70px}.topbar{display:flex;align-items:flex-end;justify-conte
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.stat{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:18px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:1.7rem;margin-top:7px}
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border)}.panel-head h2{font-size:1.05rem}.search{width:280px;max-width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);outline:none;border-radius:11px;padding:10px 12px}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:right;padding:15px 18px;border-bottom:1px solid var(--border);vertical-align:middle}.table th{color:var(--muted);font-size:.83rem;font-weight:600}.table tr:last-child td{border-bottom:0}.title-cell strong{display:block;margin-bottom:5px}.title-cell span{font-size:.78rem;color:var(--muted)}.badge{display:inline-flex;padding:5px 8px;border-radius:8px;font-size:.72rem;background:rgba(56,211,159,.09);color:#8ce7c5;border:1px solid rgba(56,211,159,.15)}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:9px;padding:8px 10px}.btn:hover{background:#17202f}.btn.danger{color:#ff98a5}.empty{text-align:center;padding:45px;color:var(--muted)}
 #editorScreen{display:none}.editor-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.editor-title{font-size:1.7rem}.editor-actions{display:flex;gap:8px}.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px 15px}.save{background:var(--success);color:#07110d;border:0;border-radius:12px;padding:12px 17px;font-weight:800}.editor{display:grid;grid-template-columns:1.55fr .75fr;gap:18px}.card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px}.field{margin-bottom:17px}.field:last-child{margin-bottom:0}.field label{display:block;font-size:.84rem;color:var(--muted);margin-bottom:8px}.field input,.field textarea,.field select{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);outline:none;border-radius:11px;padding:12px}.field textarea{min-height:260px;resize:vertical;line-height:1.8}.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(91,140,255,.5)}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:8px 11px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--panel2);cursor:pointer}.chip.active{color:#fff;border-color:rgba(91,140,255,.4);background:rgba(91,140,255,.14)}.info{font-size:.78rem;color:var(--muted);line-height:1.7}.danger-zone{margin-top:15px;border:1px solid rgba(255,100,118,.15);background:rgba(255,100,118,.04);border-radius:15px;padding:14px}.danger-zone button{margin-top:10px}
+
+.login-screen{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:35px 0}.login-card{width:min(460px,100%);background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:28px}.login-title{font-size:2rem;margin-bottom:8px}.login-sub{color:var(--muted);line-height:1.7;margin-bottom:22px}.login-card input{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);outline:none;border-radius:11px;padding:12px;margin-top:7px}.login-card label{display:block;color:var(--muted);font-size:.84rem;margin-top:14px}.login-btn{width:100%;margin-top:17px}.login-error{display:none;margin-top:12px;padding:11px;border-radius:10px;background:rgba(255,100,118,.08);color:#ff9aa6;border:1px solid rgba(255,100,118,.15);line-height:1.6}.logout{background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px 15px}
 @media(max-width:850px){.editor{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.topbar,.editor-header{align-items:stretch;flex-direction:column}.table,.table tbody,.table tr,.table td{display:block}.table thead{display:none}.table tr{padding:16px;border-bottom:1px solid var(--border)}.table td{border:0;padding:7px 2px}.actions{margin-top:8px}.panel-head{align-items:stretch;flex-direction:column}.search{width:100%}}
 </style>
 </head>
 <body>
 <header><div class="container nav"><div class="brand"><div class="logo">م</div><span>محمد ديف — الإدارة</span></div><a class="back" href="index.html">← الموقع</a></div></header>
-<main class="container">
-<section id="dashboardScreen">
-<div class="topbar"><div><h1>لوحة التحكم</h1><p>إدارة المواضيع قبل ربطها بقاعدة البيانات الحقيقية.</p></div><button class="primary" id="newTopicBtn">+ إنشاء موضوع جديد</button></div>
+<section id="loginScreen" class="login-screen">
+<div class="container">
+<div class="login-card">
+<h1 class="login-title">تسجيل الدخول</h1>
+<p class="login-sub">لوحة الإدارة الخاصة بمواضيع وملفات محمد ديف.</p>
+<label for="loginEmail">Gmail</label>
+<input id="loginEmail" type="email" autocomplete="username" placeholder="you@gmail.com">
+<label for="loginPassword">كلمة السر</label>
+<input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+<button class="primary login-btn" id="loginBtn">تسجيل الدخول</button>
+<div class="login-error" id="loginError"></div>
+</div></div>
+</section>
+
+<main class="container hidden" id="dashboardScreen">
+<section>
+<div class="topbar"><div><h1>لوحة التحكم</h1><p>إدارة مواضيع محمد ديف عبر Google Sheets.</p></div><div style="display:flex;gap:8px"><button class="logout" id="logoutBtn">تسجيل الخروج</button><button class="primary" id="newTopicBtn">+ إنشاء موضوع جديد</button></div></div>
 <div class="stats"><div class="stat"><small>إجمالي المواضيع</small><strong id="totalCount">0</strong></div><div class="stat"><small>المنشورة</small><strong id="publishedCount">0</strong></div><div class="stat"><small>المسودات</small><strong id="draftCount">0</strong></div></div>
 <div class="panel"><div class="panel-head"><h2>المواضيع</h2><input id="topicSearch" class="search" placeholder="بحث في المواضيع..." type="search"></div><div id="topicTableWrap"></div></div>
 </section>
@@ -38,35 +54,58 @@ main{padding:38px 0 70px}.topbar{display:flex;align-items:flex-end;justify-conte
 <div class="field"><label for="cover">رابط صورة الموضوع (اختياري)</label><input id="cover" type="url" placeholder="https://..."></div>
 <div class="info">لاحقًا سنضيف هنا رفع الملفات، إضافة الأكواد، اختيار لغات متعددة، المعاينة المباشرة، والحفظ عبر Google Apps Script.</div>
 </div>
-<div class="danger-zone hidden" id="deleteZone"><strong>حذف الموضوع</strong><div class="info">سيتم حذف الموضوع من القائمة المحلية في هذه النسخة التجريبية.</div><button class="btn danger" id="deleteBtn">حذف نهائي</button></div>
+<div class="danger-zone hidden" id="deleteZone"><strong>حذف الموضوع</strong><div class="info">سيتم حذف الموضوع نهائيًا من Google Sheets.</div><button class="btn danger" id="deleteBtn">حذف نهائي</button></div>
 </div>
 </div>
 </section>
 </main>
 <script>
-const STORAGE_KEY='mohdev_topics_v1';
+const API_URL="https://script.google.com/macros/s/AKfycbzWrEkKqgB1wPjrZfdZ-nq64TvLC2RuhiDRtdish9HL1UrIS4hae_KGSlhMew0FWlCkmQ/exec";
 const languages=['HTML','CSS','JavaScript','Python','Java','C','C++','C#','PHP','SQL','Bash','TypeScript','JSON','XML','Markdown','Dart','Kotlin','Swift','Go','Rust','Ruby','Lua'];
-let topics=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
-let editingId=null;
-let selectedTags=[];
+let token=sessionStorage.getItem('mohdev_token')||'';
+let topics=[];let editingId=null;let selectedTags=[];
 const $=id=>document.getElementById(id);
-function saveLocal(){localStorage.setItem(STORAGE_KEY,JSON.stringify(topics));}
-function renderStats(){ $('totalCount').textContent=topics.length; $('publishedCount').textContent=topics.filter(x=>x.status==='published').length; $('draftCount').textContent=topics.filter(x=>x.status==='draft').length; }
-function renderTable(query=''){
- const q=query.trim().toLowerCase(); const filtered=topics.filter(x=>(x.title||'').toLowerCase().includes(q)||(x.tags||[]).join(' ').toLowerCase().includes(q));
- if(!filtered.length){$('topicTableWrap').innerHTML='<div class="empty">لا توجد مواضيع مطابقة.</div>';return;}
- const rows=filtered.map(x=>`<tr><td><div class="title-cell"><strong>${escapeHtml(x.title||'بدون عنوان')}</strong><span>${escapeHtml(x.date||'')}</span></div></td><td>${x.tags?.length?x.tags.map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join(' '):'<span class="info">بدون تصنيف</span>'}</td><td><span class="badge">${x.status==='published'?'منشور':'مسودة'}</span></td><td><div class="actions"><button class="btn" data-edit="${x.id}">تعديل</button><button class="btn danger" data-delete="${x.id}">حذف</button></div></td></tr>`).join('');
- $('topicTableWrap').innerHTML=`<table class="table"><thead><tr><th>الموضوع</th><th>التصنيفات</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody>${rows}</tbody></table>`;
- document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEditor(b.dataset.edit));
- document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>removeTopic(b.dataset.delete));
-}
-function renderChips(){ $('chips').innerHTML=languages.map(l=>`<button type="button" class="chip ${selectedTags.includes(l)?'active':''}" data-lang="${l}">${l}</button>`).join(''); document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{const l=b.dataset.lang;selectedTags=selectedTags.includes(l)?selectedTags.filter(x=>x!==l):[...selectedTags,l];renderChips();}); }
-function openEditor(id=null){editingId=id;const x=id?topics.find(t=>t.id===id):null; $('dashboardScreen').style.display='none';$('editorScreen').style.display='block';$('editorHeading').textContent=x?'تعديل الموضوع':'إنشاء موضوع جديد';$('title').value=x?.title||'';$('description').value=x?.description||'';$('content').value=x?.content||'';$('status').value=x?.status||'draft';$('youtube').value=x?.youtube||'';$('cover').value=x?.cover||'';selectedTags=x?.tags?[...x.tags]:[];renderChips();$('deleteZone').classList.toggle('hidden',!x);$('saveState').textContent=x?'جارٍ تعديل الموضوع':'موضوع جديد';window.scrollTo({top:0,behavior:'smooth'});}
-function closeEditor(){editingId=null;$('editorScreen').style.display='none';$('dashboardScreen').style.display='block';}
-function saveTopic(){const title=$('title').value.trim();if(!title){alert('اكتب عنوان الموضوع أولاً.');$('title').focus();return;}const now=new Date();const data={id:editingId||crypto.randomUUID(),title,description:$('description').value.trim(),content:$('content').value,status:$('status').value,tags:[...selectedTags],youtube:$('youtube').value.trim(),cover:$('cover').value.trim(),date:now.toLocaleDateString('ar-MA'),updatedAt:now.toISOString()};if(editingId){const i=topics.findIndex(t=>t.id===editingId);topics[i]=data;}else topics.unshift(data);saveLocal();renderStats();renderTable($('topicSearch').value);closeEditor();}
-function removeTopic(id){const x=topics.find(t=>t.id===id);if(!x||!confirm(`حذف «${x.title}»؟`))return;topics=topics.filter(t=>t.id!==id);saveLocal();renderStats();renderTable($('topicSearch').value);}
 function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-$('newTopicBtn').onclick=()=>openEditor();$('cancelBtn').onclick=closeEditor;$('saveBtn').onclick=saveTopic;$('deleteBtn').onclick=()=>{if(editingId)removeTopic(editingId);closeEditor();};$('topicSearch').oninput=e=>renderTable(e.target.value);renderStats();renderTable();renderChips();
+async function api(action,data={}){
+  const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...data})});
+  const text=await res.text();let result;try{result=JSON.parse(text)}catch{throw new Error('استجابة غير صالحة من Google Apps Script.');}
+  if(!result.ok)throw new Error(result.error||'حدث خطأ غير معروف.');return result;
+}
+function showLoginError(msg){$('loginError').textContent=msg;$('loginError').style.display=msg?'block':'none';}
+async function login(){
+  const email=$('loginEmail').value.trim(),password=$('loginPassword').value;
+  if(!email||!password){showLoginError('أدخل Gmail وكلمة السر.');return;}
+  const btn=$('loginBtn');btn.disabled=true;btn.textContent='جارٍ التحقق...';showLoginError('');
+  try{const r=await api('login',{email,password});token=r.token;sessionStorage.setItem('mohdev_token',token);showDashboard();await loadTopics();}
+  catch(e){showLoginError(e.message)}finally{btn.disabled=false;btn.textContent='تسجيل الدخول';}
+}
+function showDashboard(){$('loginScreen').classList.add('hidden');$('dashboardScreen').classList.remove('hidden');}
+function showLogin(){$('dashboardScreen').classList.add('hidden');$('loginScreen').classList.remove('hidden');}
+async function loadTopics(){
+  try{const r=await api('listPosts',{token});topics=r.posts||[];renderStats();renderTable($('topicSearch').value)}
+  catch(e){sessionStorage.removeItem('mohdev_token');token='';showLogin();showLoginError(e.message);}
+}
+function renderStats(){$('totalCount').textContent=topics.length;$('publishedCount').textContent=topics.filter(x=>x.status==='published').length;$('draftCount').textContent=topics.filter(x=>x.status==='draft').length;}
+function renderTable(query=''){
+ const q=query.trim().toLowerCase();const filtered=topics.filter(x=>(x.title||'').toLowerCase().includes(q)||(x.tags||[]).join(' ').toLowerCase().includes(q));
+ if(!filtered.length){$('topicTableWrap').innerHTML='<div class="empty">لا توجد مواضيع مطابقة.</div>';return;}
+ const rows=filtered.map(x=>`<tr><td><div class="title-cell"><strong>${escapeHtml(x.title||'بدون عنوان')}</strong><span>${escapeHtml(x.updatedAt||'')}</span></div></td><td>${x.tags?.length?x.tags.map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join(' '):'<span class="info">بدون تصنيف</span>'}</td><td><span class="badge">${x.status==='published'?'منشور':'مسودة'}</span></td><td><div class="actions"><button class="btn" data-edit="${x.id}">تعديل</button><button class="btn danger" data-delete="${x.id}">حذف</button></div></td></tr>`).join('');
+ $('topicTableWrap').innerHTML=`<table class="table"><thead><tr><th>الموضوع</th><th>التصنيفات</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody>${rows}</tbody></table>`;
+ document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEditor(b.dataset.edit));document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>removeTopic(b.dataset.delete));
+}
+function renderChips(){$('chips').innerHTML=languages.map(l=>`<button type="button" class="chip ${selectedTags.includes(l)?'active':''}" data-lang="${escapeHtml(l)}">${escapeHtml(l)}</button>`).join('');document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{const l=b.dataset.lang;selectedTags=selectedTags.includes(l)?selectedTags.filter(x=>x!==l):[...selectedTags,l];renderChips();});}
+function openEditor(id=null){editingId=id;const x=id?topics.find(t=>t.id===id):null;$('dashboardScreen').classList.add('hidden');$('editorScreen').style.display='block';$('editorHeading').textContent=x?'تعديل الموضوع':'إنشاء موضوع جديد';$('title').value=x?.title||'';$('description').value=x?.description||'';$('content').value=x?.content||'';$('status').value=x?.status||'draft';$('youtube').value=x?.youtube||'';$('cover').value=x?.cover||'';selectedTags=x?.tags?[...x.tags]:[];renderChips();$('deleteZone').classList.toggle('hidden',!x);$('saveState').textContent=x?'تعديل الموضوع':'موضوع جديد';window.scrollTo({top:0,behavior:'smooth'});}
+function closeEditor(){editingId=null;$('editorScreen').style.display='none';$('dashboardScreen').classList.remove('hidden');}
+async function saveTopic(){
+ const title=$('title').value.trim();if(!title){alert('اكتب عنوان الموضوع أولاً.');$('title').focus();return;}
+ $('saveBtn').disabled=true;$('saveState').textContent='جارٍ الحفظ...';
+ try{await api('savePost',{token,post:{id:editingId,title,description:$('description').value.trim(),content:$('content').value,status:$('status').value,tags:[...selectedTags],youtube:$('youtube').value.trim(),cover:$('cover').value.trim(),codes:[],files:[]}});await loadTopics();closeEditor();}
+ catch(e){alert(e.message)}finally{$('saveBtn').disabled=false;$('saveState').textContent='غير محفوظ';}
+}
+async function removeTopic(id){const x=topics.find(t=>t.id===id);if(!x||!confirm(`حذف «${x.title}» نهائيًا؟`))return;try{await api('deletePost',{token,id});await loadTopics()}catch(e){alert(e.message)}}
+function logout(){token='';sessionStorage.removeItem('mohdev_token');topics=[];showLogin();}
+$('loginBtn').onclick=login;$('loginPassword').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('logoutBtn').onclick=logout;$('newTopicBtn').onclick=()=>openEditor();$('cancelBtn').onclick=closeEditor;$('saveBtn').onclick=saveTopic;$('deleteBtn').onclick=async()=>{if(editingId){await removeTopic(editingId);closeEditor()}};$('topicSearch').oninput=e=>renderTable(e.target.value);renderChips();
+if(token){showDashboard();loadTopics()}else showLogin();
 </script>
 </body>
 </html>
